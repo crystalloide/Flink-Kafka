@@ -14,7 +14,7 @@
 
 # Démos : contexte : 
 
-Pour aller plus loin et retrouver les conférences auxquelles Martijn Visser a participéer et fait ces démonstrations :
+Pour aller plus loin et retrouver les conférences auxquelles Martijn Visser a participé et fait ces démonstrations :
 
 * [Flink Forward talk 'Only SQL: Empower data analysts end-to-end with Flink SQL'](https://www.flink-forward.org/global-2021/conference-program#only-sql--empower-data-analysts-end-to-end-with-flink-sql) - [Recording](https://www.youtube.com/watch?v=KvaDe7QCwBQ) - [Demo version](https://github.com/MartijnVisser/flink-only-sql/releases/tag/v1.0) 
 * [Uptime talk 'Only SQL'](https://uptime.aiven.io/session/325604) - [Demo version](https://github.com/MartijnVisser/flink-only-sql/releases/tag/v2.0)
