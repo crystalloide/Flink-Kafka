@@ -64,10 +64,11 @@ docker compose run sql-client
 
 ## Accès au site web de démonstration :
 
-Avec le navigateur, aller sur l'URL http://localhost/flink/flink-docs-master/ copie du site documentaire de Flink et qui correspondra à notre démonstration :
+Avec le navigateur, aller sur l'URL http://localhost/flink/flink-docs-master/ 
 
-http://localhost/flink/flink-docs-master/
-Dans notre cas sur Gitpod, ça sera quelque chose comme ça : (allez sur l'onglet des ports ouverts en bas à droite et cliquez sur l'URL xxx:80)
+qui est une copie du site documentaire de Flink et qui correspondra à notre démonstration :
+
+Attention, dans notre cas sur Gitpod, ça sera quelque chose comme ça : (allez sur l'onglet des ports ouverts en bas à droite et cliquez sur l'URL xxx:80)
 ```bash
 https://80-crystalloide-flinkkafka-g87zshy47e8.ws-eu110.gitpod.io/
 ```
