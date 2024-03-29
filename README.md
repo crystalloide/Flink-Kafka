@@ -37,11 +37,18 @@ Nous utiliserons Docker Compose pour démarrer tous les services nécessaires à
 
 ## Lancement de l'environnement de démo : 
 
-### Récupération des images et lancements des services :
+### Récupération des images et lancements des services : ( optioon 1 : versions de 2022) 
 
 ```bash
-docker-compose up --build -d
+docker compose up --build -d
 ```
+
+### Récupération des images et lancements des services : ( optioon 2 : dernièees version disponibles à date) 
+
+```bash
+docker compose up -f docker-compose-latst.yml --build -d
+```
+
 
 ### Vérification que tous les services sont bien lancés :
 
