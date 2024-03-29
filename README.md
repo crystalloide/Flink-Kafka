@@ -365,3 +365,18 @@ GROUP BY w.identifier,
 ```
 
 ![Affichage d'une notification avec lien](only-sql-results-04.png "Displaying a personal notification on how to contribute")
+
+
+## Les URL pratiques : ( à adapter si vous faites la démo sous Gitpod) : 
+
+```bash
+http://localhost/flink/flink-docs-master/
+```
+
+```bash
+http://127.0.0.1:8081/#/overview
+```
+
+```bash
+http://127.0.0.1:9200
+```
