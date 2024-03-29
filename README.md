@@ -53,26 +53,29 @@ docker compose -f docker-compose-latest.yml up -d
 ### Vérification que tous les services sont bien lancés :
 
 ```bash
-docker-compose ps
+docker compose ps
 ```
 
 ### Lancement du client Flink SQL :
 
 ```bash
-docker-compose run sql-client
+docker compose run sql-client
 ```
 
 ## Accès au site web de démonstration :
 
 Avec le navigateur, aller sur l'URL http://localhost/flink/flink-docs-master/ copie du site documentaire de Flink et qui correspondra à notre démonstration :
 
-```bash
 http://localhost/flink/flink-docs-master/
+Dans notre cas sur Gitpod, ça sera quelque chose comme ça : (allez sur l'onglet des ports ouverts en bas à droite et cliquez sur l'URL xxx:80)
+```bash
+https://80-crystalloide-flinkkafka-g87zshy47e8.ws-eu110.gitpod.io/
 ```
 
-## Explore all realtime website behaviour
+## Analyse en temps réel des comportements des internautes sur le site : 
 
 Chaque visite à l'une des pages web est envoyée vers le Topic Kafka nommé `pageview`. 
+
 Pour ensuite explorer les informations, nous allons d'abord référencer ce topic Kafka en tant que table dans le catalog de Flink :
 
 ```sql
