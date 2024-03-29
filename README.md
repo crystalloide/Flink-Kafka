@@ -22,7 +22,7 @@ Pour aller plus loin et retrouver les conférences auxquelles Martijn Visser a p
 
 ## Docker
 
-We'll use Docker Compose to start all necessary services to run the demos. It will start the following services:
+Nous utiliserons Docker Compose pour démarrer tous les services nécessaires à la démo. Cela lancera donc les services suivants :
 
 * Apache Flink 1.15.2, accessible via http://localhost:8081
 * Apache Flink SQL Client 1.15.2
@@ -33,7 +33,7 @@ We'll use Docker Compose to start all necessary services to run the demos. It wi
 * MySQL 8.0.30, accessible via JDBC at port 3306
 * nginx 1.22.0 (stable): a powerfull HTTP server, accessible via http://localhost
 
-![Demo only-sql-overview](only-sql-overview.png "Demo overview")
+![Démonstration Démo SQL Flink](only-sql-overview.png "Demo overview")
 
 ## Lancement de l'environnement de démo : 
 
