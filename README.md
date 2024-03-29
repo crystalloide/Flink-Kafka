@@ -38,9 +38,13 @@ Nous utiliserons Docker Compose pour démarrer tous les services nécessaires à
 ## Lancement de l'environnement de démo : 
 
 Optionnel : si vous utilisez un environnement autre que Gitpod, on va d'abord cloner l'environnement : 
+
 ```bash
+
 git clone https://github.com/crystalloide/Flink-Kafka
+
 cd Flink-Kafka
+
 ```
 
 ### Récupération des images et lancements des services : ( option 1 : versions de 2022) 
