@@ -6,7 +6,7 @@
 
 **********************************************************************************************************************************
 
-## Pour lancer notre TP  (en ligne via un simple navigateur web et un compte Gitlab oiu Github basique)  :
+## Pour lancer notre TP  (en ligne via un simple navigateur web et un compte Gitlab/Github basique)  :
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/crystalloide/Flink-Kafka)
 
