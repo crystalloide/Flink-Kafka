@@ -46,7 +46,7 @@ docker compose up --build -d
 ### Récupération des images et lancements des services : ( optioon 2 : dernièees version disponibles à date) 
 
 ```bash
-docker compose up -f docker-compose-latst.yml --build -d
+docker compose -f docker-compose-latest.yml up -d
 ```
 
 
