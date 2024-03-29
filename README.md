@@ -1,6 +1,20 @@
-# Conference usage
 
-This demo is used by Martijn Visser in the following conference talks:
+
+**********************************************************************************************************************************
+
+## Rappel pour retrouver les environnements éventuellement précédemment instanciés dans Gitpod : [ https://gitpod.io/workspaces ](https://gitpod.io/workspaces)
+
+**********************************************************************************************************************************
+
+## Pour lancer notre TP  (en ligne via un simple navigateur web et un compte Gitlab oiu Github basique)  :
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/crystalloide/Flink-Kafka)
+
+**********************************************************************************************************************************
+
+# Démos : contexte : 
+
+Pour aller plus loin et retrouver les conférences auxquelles Martijn Visser a participéer et fait ces démonstrations :
 
 * [Flink Forward talk 'Only SQL: Empower data analysts end-to-end with Flink SQL'](https://www.flink-forward.org/global-2021/conference-program#only-sql--empower-data-analysts-end-to-end-with-flink-sql) - [Recording](https://www.youtube.com/watch?v=KvaDe7QCwBQ) - [Demo version](https://github.com/MartijnVisser/flink-only-sql/releases/tag/v1.0) 
 * [Uptime talk 'Only SQL'](https://uptime.aiven.io/session/325604) - [Demo version](https://github.com/MartijnVisser/flink-only-sql/releases/tag/v2.0)
