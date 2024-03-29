@@ -36,28 +36,38 @@ We'll use Docker Compose to start all necessary services to run the demos. It wi
 
 ![Demo only-sql-overview](only-sql-overview.png "Demo overview")
 
-## Starting the demo
+## Lancement de l'environnement de démo : 
+
+### Récupération des images et lancements des services :
 
 ```bash
-# Build and start all services
 docker-compose up --build -d
+```
 
-# Check if all the services are running
+### Vérification que tous les services sont bien lancés :
+
+```bash
 docker-compose ps
+```
 
-# Start the Flink SQL Client
+### Lancement du client Flink SQL :
+
+```bash
 docker-compose run sql-client
 ```
 
-## Access the demo website
+## Accès au site web de démonstration :
 
-Visit http://localhost/flink/flink-docs-master/ to access the copy of the Apache Flink documentation, which is our demo 
-website.
+Avec le navigateur, aller sur l'URL http://localhost/flink/flink-docs-master/ copie du site documentaire de Flink et qui correspondra à notre démonstration :
+
+```bash
+http://localhost/flink/flink-docs-master/
+```
 
 ## Explore all realtime website behaviour
 
-Any visit to one of the webpages is sent to the Kafka topic `pageview`. 
-In order to explore them, we first need to register this Kafka topic as a table in Flink's catalog.
+Chaque visite à l'une des pages web est envoyée vers le Topic Kafka nommé `pageview`. 
+Pour ensuite explorer les informations, nous allons d'abord référencer ce topic Kafka en tant que table dans le catalog de Flink :
 
 ```sql
 --Create table pageviews:
@@ -82,9 +92,9 @@ CREATE TABLE pageviews (
 );
 ```
 
-Any cookie that belongs to the domain `localhost` (which is where our website runs), is also sent to the topic. 
-You are specifically interested in a cookie called `identifier`. You're going to register a view, which returns this 
-value by applying a regular expressing on the incoming data. 
+Tout cookie appartenant au domaine `localhost` (où notre site Web est exécuté) est également envoyé au topic.
+Dans notre exemple, nous nous intéressons tout particulièrement à un cookie appelé `identifier`. 
+Nous allons donc enregistrer une vue, qui renvoie cette information en appliquant une expression régulière sur les données entrantes.
 
 ```sql
 --Create view which already extracts the identifier from the cookies
@@ -102,8 +112,9 @@ CREATE TEMPORARY VIEW web_activities AS
     FROM pageviews;
 ```
 
-By now running queries on the view while visiting a webpage, you will see data appearing in the Flink SQL Client.
-This is an unbounded (streaming) source of data, meaning that the application will never end. 
+En exécutant désormais des requêtes sur la vue lors de la visite d'une page Web, les données apparaîtrons dans le client Flink SQL.
+
+Il s'agit d'une source de données illimitée (en streaming), ce qui signifie que l'application ne s'arrêtera jamais.
 
 ```sql 
 SELECT * from web_activities;
@@ -111,10 +122,12 @@ SELECT * from web_activities;
 
 ![Flink SQL Client Results](only-sql-results-01.png "Flink SQL Client Results - Unbounded datasource")
 
-## Explore historical website behaviour
 
-This demo setup has captured some historical website behaviour data. This has been stored in the MySQL table `history`.
-In order to access this data, you first need to register this table in the Flink catalog. 
+## Explorons le comportement historisé sur ce site Web :
+
+Pour la démonstration, nous avons capturé des données historiques sur le comportement constaté sur le site Web. Ceci a été stocké dans la table MySQL `history`.
+
+Pour accéder à ces données, il faut d'abord enregistrer cette table dans le catalogue Flink :
 
 ```sql
 --Create table history:
@@ -138,8 +151,10 @@ CREATE TABLE history (
 );
 ```
 
-By now running a query on this data, you will see the historical data in the Flink SQL Client.
-This is a bounded (batch) source of data, meaning that the application will end after processing all the data. 
+En exécutant maintenant une requête sur ces données, on retrouve bien les données historisées dans le client Flink SQL.
+
+Il s'agit cette fois d'une source de données limitée (par batchs/lots), ce qui signifie que l'application se terminera après avoir traité toutes les données.
+
 
 ```sql 
 SELECT * from history;
@@ -147,14 +162,18 @@ SELECT * from history;
 
 ![Flink SQL Client Results](only-sql-results-02.png "Flink SQL Client Results - Bounded datasource")
 
-## Determine users that are matching a certain pattern
+## Déterminons les utilisateurs qui correspondent à un certain modèle de comportement : 
 
-You are going to use Flink's `MATCH_RECOGNIZE` function to select all identifiers that match a specific pattern. 
-You can use this function for all sorts of Complex Event Processing capabilities.
-In the setup below, you select all identifiers that visit:
+Nous utilisons ici la fonction `MATCH_RECOGNIZE` de Flink pour sélectionner tous les identifiants qui correspondent à un modèle spécifique.
+
+Cette fonction est utilisable pour toutes sortes de fonctionnalités de traitement d'événements complexes.
+
+Dans la configuration ci-dessous, nous sélectionnons tous les identifiants qui visitent :
 
 1. http://localhost/flink/flink-docs-master/docs/try-flink/datastream/ followed by (both directly and indirectly)
+
 2. http://localhost/flink/flink-docs-master/docs/try-flink/table_api/ followed by (both directly and indirectly)
+
 3. http://localhost/flink/flink-docs-master/docs/try-flink/flink-operations-playground/
 
 ```sql
@@ -173,15 +192,19 @@ FROM web_activities
 );
 ```
 
-## Act on the users that are matching the defined pattern
 
-You've just created the list of `identifier` that meet our defined pattern. 
-You now want to act on this data. 
-In order to achieve that, you're going to send the list of `identifer` to your Elasticsearch sink. 
-The website checks if there's any result in the Elasticsearch results and if so, it will display the notification. 
+## Agir sur les utilisateurs qui correspondent au modèle défini :
 
-To send the data to Elasticsearch, you first have to create another table like you've done before in Flink's catalog.
-Use the following DDL:
+Après avoir créé la liste des « identifiants » qui répondent à notre modèle défini, on veut maintenant agir sur ces données.
+
+Pour cela, nous envoyons la liste des « identifiants » vers Elasticsearch.
+
+Le site Web vérifie s'il y a un résultat dans les résultats d'Elasticsearch et, si c'est le cas, il affiche la notification.
+
+Pour envoyer les données à Elasticsearch, il faut d'abord créer une autre table, comme déjà fait précédemment, dans le catalogue de Flink.
+
+On utilise le DDL suivant :
+
 
 ```sql
 --Create a sink to display a notification
@@ -198,8 +221,10 @@ CREATE TABLE notifications (
 );
 ```
 
-When that table is created, you'll re-use the previous SQL that returns the list of `identifier` 
-and send those results to the previously created table. 
+Lorsque la table est créée, on reprend la requête SQL précédente (qui renvoie la liste des `identifier`)
+
+et on envoie les résultats à la table créée précédemment.
+
 
 ```sql
 INSERT INTO notifications (`identifier`, `notification_id`, `notification_text`)
@@ -221,26 +246,30 @@ INSERT INTO notifications (`identifier`, `notification_id`, `notification_text`)
 ) AS T;
 ```
 
-> :warning: The default value of the cookie `identifier` is `anonymous`. No notifications will be displayed if the value is `anonymous`. 
+> :avertissement : La valeur par défaut du cookie `identifier` est `anonymous`. Aucune notification ne sera affichée si la valeur est `anonymous`.
 >
-> In order to change the value, you need to open the Developer Tools via either Cmd + Opt + J (on Mac) or Ctrl + Shift + J (on Windows)
-> 
-> In the opened console, you then need to type `document.cookie="identifier=YourIdentifier"` to change the value of the `identifier` cookie. 
+> Pour modifier la valeur, on ouvre l'IDE  (outil de développement) via Cmd + Opt + J (sur Mac) ou Ctrl + Shift + J (sous Windows)
+>
+> Dans la console ouverte, vous devez ensuite taper `document.cookie="identifier=YourIdentifier"` pour modifier la valeur du cookie `identifier`.
 
-If you've changed the value of your `identifier` cookie, and you follow the defined pattern, 
-a notification will be displayed to you. 
+Si vous modifiez la valeur de votre cookie `identifier` et que vous suivez le pattern défini, une notification sera affichée.
 
-![Displaying a personal notification](only-sql-results-03.png "Displaying a personal notification")
+![Affichage d'une notification personnelle](only-sql-results-03.png "Displaying a personal notification")
 
-## Join and enrich streaming data with batch data
+## Jointure et enrichissement des données de streaming avec les données de batchs :
 
-Another common use case in SQL is that you need join data from multiple sources. 
-In the next example, you will display a notification to the user of the website 
-who has visited the homepage more than 3 times in 10 seconds. If the `identifier` is `MartijnsMac`, the notification 
-will display a link to the author's Twitter handle. The Twitter handle is retrieved from the external source. 
-In case the identifier is different, no link will be included. 
+Un autre cas d'utilisation courant de SQL est que vous devez joindre des données provenant de plusieurs sources.
 
-The first thing that we'll do is create another table, so we can connect to the data. 
+Dans l'exemple suivant, vous afficherez une notification à l'utilisateur du site Web qui a visité la page d'accueil plus de 3 fois en 10 secondes. 
+
+Si l'`identifier` est `MartijnsMac`, la notification affichera un lien vers le compte Twitter de l'auteur. 
+
+Le pseudo Twitter est récupéré à partir de la source externe.
+
+Dans le cas où l'identifiant est différent, aucun lien ne sera inclus.
+
+La première chose à faire est de créer une autre table afin de pouvoir se connecter aux données :
+
 
 ```sql
 CREATE TABLE customer (
@@ -257,7 +286,7 @@ CREATE TABLE customer (
 );
 ```
 
-You can use a Window Table-Valued Function to determine which identifiers have visited the homepage more then 3 times.
+Nous allons utiliser une fonction "Window Table-Valued " pour déterminer quels identifiants ont visité la page d'accueil plus de 3 fois :
 
 ```sql
 SELECT window_start, window_end, window_time, COUNT(`identifier`) AS `NumberOfVisits` FROM TABLE(
@@ -267,8 +296,11 @@ SELECT window_start, window_end, window_time, COUNT(`identifier`) AS `NumberOfVi
    HAVING COUNT(`identifier`) > 3;
 ```
 
-The result of the Window Table-Valued Function can also be combined in a JOIN. You can join the previous results with 
-the data in the previously registered `customer` table to enrich the result. You can use the following DDL for this:
+Le résultat de la fonction Window Table-Valued peut également être combiné dans une jointure JOIN. 
+
+On va joindre les résultats précédents avec les données de la table `customer` précédemment enregistrée pour enrichir le résultat. 
+
+Nous allons utiliser le DDL suivant pour cela :
 
 ```sql
 SELECT w.identifier,
@@ -289,8 +321,7 @@ GROUP BY w.identifier,
          c.twitter_handle;
 ```
 
-With a slight modification to the DDL above, you can use the result for displaying an actionable insight to these
-visitors:
+Avec une simple modification du DDL ci-dessus, on peut utiliser le résultat pour afficher un aperçu exploitable de ces visiteurs :
 
 ```sql
 INSERT INTO notifications (`identifier`, `notification_id`, `notification_text`, `notification_link`)
@@ -313,4 +344,4 @@ GROUP BY w.identifier,
          c.twitter_handle;
 ```
 
-![Displaying a notification with link](only-sql-results-04.png "Displaying a personal notification on how to contribute")
+![Affichage d'une notification avec lien](only-sql-results-04.png "Displaying a personal notification on how to contribute")
